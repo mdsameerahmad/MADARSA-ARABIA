@@ -1,16 +1,19 @@
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { clsx, type ClassValue } from "clsx";
 import { motion, useAnimation, useInView } from 'framer-motion';
 import {
-    ArrowRight,
-    BookOpen,
-    Calendar,
-    ChevronLeft,
-    ChevronRight,
-    GraduationCap,
-    Heart,
-    Pause,
-    Play,
-    Star,
-    Users // Added the missing Users import
+  ArrowRight,
+  BookOpen,
+  Calendar,
+  ChevronLeft,
+  ChevronRight,
+  GraduationCap,
+  Heart,
+  Pause,
+  Play,
+  Star,
+  Users // Added the missing Users import
 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -20,10 +23,152 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import { Autoplay, EffectFade, Navigation, Pagination } from 'swiper/modules';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import { twMerge } from "tailwind-merge";
 import { ImageWithFallback } from '../figma/ImageWithFallback';
-import { Badge } from '../ui/badge';
-import { Button } from '../ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '../ui/card';
+
+function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}
+
+const badgeVariants = cva(
+  "inline-flex items-center justify-center rounded-md border px-2 py-0.5 text-xs font-medium w-fit whitespace-nowrap shrink-0 [&>svg]:size-3 gap-1 [&>svg]:pointer-events-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive transition-[color,box-shadow] overflow-hidden",
+  {
+    variants: {
+      variant: {
+        default:
+          "border-transparent bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
+        secondary:
+          "border-transparent bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
+        destructive:
+          "border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        outline:
+          "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  },
+);
+
+function Badge({
+  className,
+  variant,
+  asChild = false,
+  ...props
+}: React.ComponentProps<"span"> &
+  VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
+  const Comp = asChild ? Slot : "span";
+
+  return (
+    <Comp
+      data-slot="badge"
+      className={cn(badgeVariants({ variant }), className)}
+      {...props}
+    />
+  );
+}
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
+  {
+    variants: {
+      variant: {
+        default: "bg-primary text-primary-foreground hover:bg-primary/90",
+        destructive:
+          "bg-destructive text-white hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60",
+        outline:
+          "border bg-background text-foreground hover:bg-accent hover:text-accent-foreground dark:bg-input/30 dark:border-input dark:hover:bg-input/50",
+        secondary:
+          "bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        ghost:
+          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
+        link: "text-primary underline-offset-4 hover:underline",
+      },
+      size: {
+        default: "h-9 px-4 py-2 has-[>svg]:px-3",
+        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
+        icon: "size-9 rounded-md",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "default",
+    },
+  },
+);
+
+const Button = React.forwardRef<
+  HTMLButtonElement,
+  React.ComponentProps<"button"> &
+    VariantProps<typeof buttonVariants> & {
+      asChild?: boolean;
+    }
+>(function Button({
+  className,
+  variant,
+  size,
+  asChild = false,
+  ...props
+}, ref) {
+  const Comp = asChild ? Slot : "button";
+
+  return (
+    <Comp
+      ref={ref}
+      data-slot="button"
+      className={cn(buttonVariants({ variant, size, className }))}
+      {...props}
+    />
+  );
+});
+
+function Card({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card"
+      className={cn(
+        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+function CardHeader({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-header"
+      className={cn(
+        "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 pt-6 has-data-[slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+function CardTitle({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <h4
+      data-slot="card-title"
+      className={cn("leading-none", className)}
+      {...props}
+    />
+  );
+}
+
+function CardContent({ className, ...props }: React.ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="card-content"
+      className={cn("px-6 [&:last-child]:pb-6", className)}
+      {...props}
+    />
+  );
+}
 
 interface HomePageProps {
   onPageChange: (page: string) => void;
@@ -243,73 +388,40 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
   // Local madrasa photos for hero carousel
   const madrasaPhotos = [
     {
-      url: "/assets/h1.png",
+      url: "/assets/h1.jpeg",
       title: t("madrasaPhotos.mainAcademicBuildingTitle"),
       description: t("madrasaPhotos.mainAcademicBuildingDescription")
     },
     {
-      url: "/assets/group.png",
+      url: "/assets/h2.jpeg",
       title: t("madrasaPhotos.studentLibraryTitle"),
       description: t("madrasaPhotos.studentLibraryDescription")
     },
     {
-      url: "/assets/h2.png",
-      title: t("madrasaPhotos.studentLibraryTitle"),
-      description: t("madrasaPhotos.studentLibraryDescription")
-    },
-    {
-      url: "/assets/m3.png",
-      title: t("madrasaPhotos.studentLibraryTitle"),
-      description: t("madrasaPhotos.studentLibraryDescription")
-    },
-    {
-      url: "/assets/h1.png",
+      url: "/assets/h3.jpeg",
       title: t("madrasaPhotos.mainAcademicBuildingTitle"),
       description: t("madrasaPhotos.mainAcademicBuildingDescription")
-    }, {
-      url: "/assets/m2.png",
+    },
+    {
+      url: "/assets/h4.jpeg",
       title: t("madrasaPhotos.studentLibraryTitle"),
       description: t("madrasaPhotos.studentLibraryDescription")
     },
     {
-      url: "/assets/h4.png",
-      title: t("madrasaPhotos.studentLibraryTitle"),
-      description: t("madrasaPhotos.studentLibraryDescription")
-    },
-    {
-      url: "/assets/h5.png",
+      url: "/assets/h5.jpeg",
       title: t("madrasaPhotos.prayerHallMosqueTitle"),
       description: t("madrasaPhotos.prayerHallMosqueDescription")
     },
     {
-      url: "/assets/h6.png",
+      url: "/assets/h6.jpeg",
       title: t("madrasaPhotos.studentDormsTitle"),
       description: t("madrasaPhotos.studentDormsDescription")
     },
     {
-      url: "/assets/h7.png",
+      url: "/assets/h7.jpeg",
       title: t("madrasaPhotos.campusCourtyardTitle"),
       description: t("madrasaPhotos.campusCourtyardDescription")
     },
-    {
-      url: "/assets/h8.png",
-      title: t("madrasaPhotos.classroomFacilitiesTitle"),
-      description: t("madrasaPhotos.classroomFacilitiesDescription")
-    },
-    {
-      url: "/assets/h2.png",
-      title: t("madrasaPhotos.classroomFacilitiesTitle"),
-      description: t("madrasaPhotos.classroomFacilitiesDescription")
-    }, {
-      url: "/assets/h10.png",
-      title: t("madrasaPhotos.classroomFacilitiesTitle"),
-      description: t("madrasaPhotos.classroomFacilitiesDescription")
-    },
-    {
-      url: "/assets/h11.png",
-      title: t("madrasaPhotos.classroomFacilitiesTitle"),
-      description: t("madrasaPhotos.classroomFacilitiesDescription")
-    }
   ];
 
   useEffect(() => {
@@ -422,7 +534,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
       {/* Hero Section with Carousel - IMPROVED */}
       <motion.section
         ref={heroRef}
-        className="relative h-screen overflow-hidden"
+        className="relative h-screen overflow-hidden mobile-hero-section"
         initial="hidden"
         animate={heroControls}
         variants={containerVariants}
@@ -450,14 +562,14 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
                   <ImageWithFallback
                     src={photo.url}
                     alt={photo.title}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover mobile-hero-image"
                   />
                   {/* Enhanced Overlay for better text readability */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40" />
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/60 to-black/40 mobile-hero-overlay" />
 
                   {/* Photo Info - Improved positioning */}
                   <motion.div
-                    className="absolute bottom-16 left-8 text-white z-20"
+                    className="absolute bottom-16 left-8 text-white z-20 mobile-photo-info"
                     initial={{ opacity: 0, y: 30 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.5, duration: 0.8 }}
@@ -472,28 +584,28 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
         </div>
 
         {/* Hero Content Overlay - CENTERED LAYOUT */}
-        <div className="absolute inset-0 flex items-center justify-center text-center">
+        <div className="absolute inset-0 flex items-center justify-center text-center mobile-hero-content-wrap">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
             <motion.div
               className="text-white"
               variants={containerVariants}
             >
               <motion.div
-                className="mb-8"
+                className="mb-8 mobile-hero-badge-wrap"
                 variants={itemVariants}
               >
-                <Badge variant="outline" className="bg-white/30 text-white border-white/40 hover:bg-white/40 transition-colors duration-300 text-base md:text-lg py-2 px-4">
+                <Badge variant="outline" className="bg-white/30 text-white border-white/40 hover:bg-white/40 transition-colors duration-300 text-base md:text-lg py-2 px-4 mobile-hero-badge">
                   {t('home.excellenceInIslamicEducation')}
                 </Badge>
               </motion.div>
 
               {/* UPDATED HEADLINE FOR BETTER VISIBILITY */}
               <motion.h1
-                className="font-extrabold mb-6 leading-tight"
+                className="font-extrabold mb-6 leading-tight mobile-hero-title"
                 variants={itemVariants}
               >
                 <motion.span
-                  className="block text-[#FFD700]"
+                  className="block text-[#FFD700] mobile-hero-main-headline"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.8 }}
@@ -510,7 +622,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
-                  className="block text-white text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-4"
+                  className="block text-white text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-4 mobile-hero-sub-headline"
                   style={{
                     textShadow: '3px 3px 12px rgba(0,0,0,0.7), 1px 1px 4px rgba(0,0,0,0.5)',
                     fontFamily: 'Arial, sans-serif',
@@ -522,7 +634,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
               </motion.h1>
 
               <motion.p
-                className="text-xl md:text-2xl text-white/95 mb-10 leading-relaxed max-w-3xl mx-auto font-medium"
+                className="text-xl md:text-2xl text-white/95 mb-10 leading-relaxed max-w-3xl mx-auto font-medium mobile-hero-description"
                 variants={itemVariants}
                 style={{
                   textShadow: '2px 2px 6px rgba(0,0,0,0.7)',
@@ -533,7 +645,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
               </motion.p>
 
               <motion.div
-                className="flex flex-col sm:flex-row gap-6 justify-center"
+                className="flex flex-col sm:flex-row gap-6 justify-center mobile-hero-actions"
                 variants={itemVariants}
               >
                 <motion.div
@@ -542,10 +654,10 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
                 >
                   <Button
                     size="lg"
-                    className="bg-[#1F7A53] hover:bg-[#1F7A53]/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-lg font-semibold py-6 px-8"
+                    className="bg-[#1F7A53] hover:bg-[#1F7A53]/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-lg font-semibold py-6 px-8 mobile-hero-button"
                     onClick={() => onPageChange('programs')}
                   >
-                    <BookOpen className="w-6 h-6 mr-2" />
+                    <BookOpen className="w-6 h-6 mr-2 mobile-hero-button-icon" />
                     {t('heroSection.explorePrograms')}
                   </Button>
                 </motion.div>
@@ -556,10 +668,10 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="bg-[#1F7A53] hover:bg-[#1F7553]/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-lg font-semibold py-6 px-8"
+                    className="bg-[#1F7A53] hover:bg-[#1F7553]/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-lg font-semibold py-6 px-8 mobile-hero-button"
                     onClick={handleDonateClick}
                   >
-                    <Heart className="w-6 h-6 mr-2" />
+                    <Heart className="w-6 h-6 mr-2 mobile-hero-button-icon" />
                     {t('heroSection.donate')}
                   </Button>
                 </motion.div>
@@ -570,7 +682,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
 
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white z-20"
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white z-20 mobile-scroll-indicator"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >

@@ -1,35 +1,30 @@
-import React from "react";
 import { motion } from "framer-motion";
+import React from "react";
 import { useLanguage } from "../../contexts/LanguageContext";
 
 const GalleryPage: React.FC = () => {
   const { t } = useLanguage();
 
   const images = [
-    "/assets/p00.png",
-    "/assets/group.png",
     "/assets/c1.jpg",
     "/assets/c2.jpg",
     "/assets/c3.jpg",
     "/assets/c4.jpg",
     "/assets/c5.jpg",
     "/assets/c6.jpg",
-    "/assets/m2.png",
-    "/assets/m3.png",
-    "/assets/c7.jpg",
-    "/assets/h1.png",
-    "/assets/h2.png",
-    "/assets/h3.png",
-    "/assets/h4.png",
-    "/assets/h5.png",
-    "/assets/h6.png",
-    "/assets/h7.png",
-    "/assets/h8.png",
-    "/assets/h9.png",
-    "/assets/h10.png",
-    "/assets/h11.png",
-    "/assets/m1.png",
-    "/assets/m4.png",
+    "/assets/g1.jpeg",
+    "/assets/g2.jpeg",
+    "/assets/g3.jpeg",
+    "/assets/g4.jpeg",
+    "/assets/g5.jpeg",
+    "/assets/g6.jpeg",
+    "/assets/g7.jpeg",
+    "/assets/g8.jpeg",
+    "/assets/g9.jpeg",
+    "/assets/g10.jpeg",
+    "/assets/g11.jpeg",
+    "/assets/g12.jpeg",
+    "/assets/g13.jpeg",
   ];
 
   return (
@@ -45,7 +40,7 @@ const GalleryPage: React.FC = () => {
           {images.map((image, index) => (
             <motion.div
               key={index}
-              className="w-full h-64 overflow-hidden rounded-xl shadow-md bg-white"
+              className="relative w-full h-64 overflow-hidden rounded-xl shadow-md bg-white"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.2 }}
@@ -62,7 +57,12 @@ const GalleryPage: React.FC = () => {
               <img
                 src={image}
                 alt={`Gallery Image ${index + 1}`}
-                className="w-full h-full object-cover transition-transform duration-300"
+                className="absolute inset-0 w-full h-full object-cover object-center transition-transform duration-300"
+                style={{
+                  transform: image.includes("/assets/g")
+                    ? "scale(1.28)"
+                    : undefined,
+                }}
               />
             </motion.div>
           ))}
