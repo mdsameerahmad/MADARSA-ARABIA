@@ -173,7 +173,7 @@ const Header: React.FC<HeaderProps> = ({ currentPage, onPageChange }) => {
             transition={{ duration: 0.2 }}
           >
             <ImageWithFallback
-              src="/assets/lo.png"
+              src="/assets/lo.webp"
               alt="Madarsa Arabia Logo"
               className="w-13 h-12 rounded-lg object-contain"
             />

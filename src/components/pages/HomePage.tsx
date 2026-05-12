@@ -288,7 +288,6 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
 
   // Animation controls
   const heroControls = useAnimation();
-  const statsControls = useAnimation();
   const departmentsControls = useAnimation();
 
   // Refs for scroll animations
@@ -296,9 +295,8 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
   const statsRef = useRef<HTMLElement>(null);
   const departmentsRef = useRef<HTMLDivElement>(null);
 
-  const heroInView = useInView(heroRef, { once: true, margin: "-100px" });
-  const statsInView = useInView(statsRef, { once: true, margin: "-100px" });
-  const departmentsInView = useInView(departmentsRef, { once: true, margin: "-100px" });
+  const heroInView = useInView(heroRef, { once: true, margin: "0px" });
+  const departmentsInView = useInView(departmentsRef, { once: true, margin: "0px" });
 
   const getIcon = (slug: string) => {
     const icons: { [key: string]: React.ComponentType<any> } = {
@@ -323,21 +321,21 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
 
   // Campus Life gallery images
   const galleryImages = [
-    '/assets/p00.png',
-    '/assets/m3.png',
-    '/assets/h1.png',
-    '/assets/m4.png',
-    '/assets/h2.png',
-    '/assets/m1.png',
-    '/assets/h6.png',
-    '/assets/m2.png',
-    '/assets/m1.png',
-    '/assets/m3.png',
-    '/assets/m2.png',
-    '/assets/m1.png',
-    '/assets/h4.png',
-    '/assets/h5.png',
-    '/assets/h1.png',
+    '/assets/p00.webp',
+    '/assets/m3.webp',
+    '/assets/h1.webp',
+    '/assets/m4.webp',
+    '/assets/h2.webp',
+    '/assets/m1.webp',
+    '/assets/h6.webp',
+    '/assets/m2.webp',
+    '/assets/m1.webp',
+    '/assets/m3.webp',
+    '/assets/m2.webp',
+    '/assets/m1.webp',
+    '/assets/h4.webp',
+    '/assets/h5.webp',
+    '/assets/h1.webp',
   ];
 
   useEffect(() => {
@@ -345,12 +343,6 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
       heroControls.start("visible");
     }
   }, [heroInView, heroControls]);
-
-  useEffect(() => {
-    if (statsInView) {
-      statsControls.start("visible");
-    }
-  }, [statsInView, statsControls]);
 
   useEffect(() => {
     if (departmentsInView) {
@@ -388,63 +380,50 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
   // Local madrasa photos for hero carousel
   const madrasaPhotos = [
     {
-      url: "/assets/h1.jpeg",
+      url: "/assets/h1.webp",
       title: t("madrasaPhotos.mainAcademicBuildingTitle"),
       description: t("madrasaPhotos.mainAcademicBuildingDescription")
     },
     {
-      url: "/assets/h2.jpeg",
+      url: "/assets/h2.webp",
       title: t("madrasaPhotos.studentLibraryTitle"),
       description: t("madrasaPhotos.studentLibraryDescription")
     },
     {
-      url: "/assets/h3.jpeg",
+      url: "/assets/h3.webp",
       title: t("madrasaPhotos.mainAcademicBuildingTitle"),
       description: t("madrasaPhotos.mainAcademicBuildingDescription")
     },
     {
-      url: "/assets/h4.jpeg",
+      url: "/assets/h4.webp",
       title: t("madrasaPhotos.studentLibraryTitle"),
       description: t("madrasaPhotos.studentLibraryDescription")
     },
     {
-      url: "/assets/h5.jpeg",
+      url: "/assets/h5.webp",
       title: t("madrasaPhotos.prayerHallMosqueTitle"),
       description: t("madrasaPhotos.prayerHallMosqueDescription")
     },
     {
-      url: "/assets/h6.jpeg",
+      url: "/assets/h6.webp",
       title: t("madrasaPhotos.studentDormsTitle"),
       description: t("madrasaPhotos.studentDormsDescription")
     },
     {
-      url: "/assets/h7.jpeg",
+      url: "/assets/h7.webp",
       title: t("madrasaPhotos.campusCourtyardTitle"),
       description: t("madrasaPhotos.campusCourtyardDescription")
     },
   ];
 
   useEffect(() => {
-    // Load stats data
-    const loadStats = async () => {
-      try {
-        const response = await fetch('/data/stats.json');
-        if (response.ok) {
-          const data = await response.json();
-          setStats(data);
-        } else {
-          throw new Error('Failed to fetch stats');
-        }
-      } catch (error) {
-        // Fallback data
-        setStats([
-          { label: t('home.students'), value: 515 },
-          { label: t('home.teachers'), value: 26 },
-          { label: t('home.graduates'), value: 800 },
-          { label: t('home.branches'), value: 13 }
-        ]);
-      }
-    };
+    // Load stats data with translation keys
+    setStats([
+      { label: t('home.students'), value: 515 },
+      { label: t('home.teachers'), value: 26 },
+      { label: t('home.graduates'), value: 800 },
+      { label: t('home.branches'), value: 13 }
+    ]);
     
     // Use a consistent list of slugs from your i18n JSON
     const programSlugsForHome = ["tajweed", "naajrah", "hifz", "aalimiyat", "computerScience", "girlsEducation"];
@@ -457,32 +436,16 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
     }));
     setDepartments(loadedDepartments);
 
-    // Load news data - Corrected to load all news items and use i18n for fallback
-    const loadNews = async () => {
-      try {
-        const response = await fetch('/data/news.json');
-        if (response.ok) {
-          const data = await response.json();
-          setNews(data); // Removed .slice(0, 6)
-        } else {
-          throw new Error('Failed to fetch news');
-        }
-      } catch (error) {
-        // Fallback data using i18n keys
-        setNews([
-          {
-            slug: "shasmahi-ke-imtihaan-2025",
-            title: t('noticePage.articles.shasmahi-ke-imtihaan-2025.title'),
-            date: "2025-08-25",
-            tag: t('noticePage.articles.shasmahi-ke-imtihaan-2025.tag'),
-            excerpt: t('noticePage.articles.shasmahi-ke-imtihaan-2025.excerpt')
-          }
-        ]);
+    // Load news data - use fallback since news.json is commented out
+    setNews([
+      {
+        slug: "shasmahi-ke-imtihaan-2025",
+        title: t('noticePage.articles.shasmahi-ke-imtihaan-2025.title'),
+        date: "2025-08-25",
+        tag: t('noticePage.articles.shasmahi-ke-imtihaan-2025.tag'),
+        excerpt: t('noticePage.articles.shasmahi-ke-imtihaan-2025.excerpt')
       }
-    };
-
-    loadStats();
-    loadNews();
+    ]);
   }, [t]); // Add 't' as a dependency to ensure translation updates trigger a reload
 
   const testimonials: Testimonial[] = [
@@ -585,23 +548,23 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
 
         {/* Hero Content Overlay - CENTERED LAYOUT */}
         <div className="absolute inset-0 flex items-center justify-center text-center mobile-hero-content-wrap">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-10">
+          <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 w-full z-10">
             <motion.div
               className="text-white"
               variants={containerVariants}
             >
               <motion.div
-                className="mb-8 mobile-hero-badge-wrap"
+                className="mb-6 md:mb-8 mobile-hero-badge-wrap"
                 variants={itemVariants}
               >
-                <Badge variant="outline" className="bg-white/30 text-white border-white/40 hover:bg-white/40 transition-colors duration-300 text-base md:text-lg py-2 px-4 mobile-hero-badge">
+                <Badge variant="outline" className="bg-white/30 text-white border-white/40 hover:bg-white/40 transition-colors duration-300 text-sm md:text-base lg:text-lg py-1.5 md:py-2 px-3 md:px-4 mobile-hero-badge">
                   {t('home.excellenceInIslamicEducation')}
                 </Badge>
               </motion.div>
 
               {/* UPDATED HEADLINE FOR BETTER VISIBILITY */}
               <motion.h1
-                className="font-extrabold mb-6 leading-tight mobile-hero-title"
+                className="font-extrabold mb-4 md:mb-6 leading-tight mobile-hero-title"
                 variants={itemVariants}
               >
                 <motion.span
@@ -613,7 +576,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
                     textShadow: '2px 2px 8px rgba(0,0,0,0.7)',
                     fontFamily: 'Arial, sans-serif',
                     fontWeight: 800,
-                    fontSize: 'clamp(2.5rem, 5vw, 4.5rem)'
+                    fontSize: 'clamp(1.8rem, 6vw, 3.5rem)'
                   }}
                 >
                   {t('heroSection.mainHeadline')}
@@ -622,7 +585,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.8 }}
-                  className="block text-white text-5xl md:text-6xl lg:text-7xl xl:text-8xl mb-4 mobile-hero-sub-headline"
+                  className="block text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-3 md:mb-4 mobile-hero-sub-headline"
                   style={{
                     textShadow: '3px 3px 12px rgba(0,0,0,0.7), 1px 1px 4px rgba(0,0,0,0.5)',
                     fontFamily: 'Arial, sans-serif',
@@ -634,7 +597,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
               </motion.h1>
 
               <motion.p
-                className="text-xl md:text-2xl text-white/95 mb-10 leading-relaxed max-w-3xl mx-auto font-medium mobile-hero-description"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl text-white/95 mb-8 md:mb-10 leading-relaxed max-w-3xl mx-auto font-medium mobile-hero-description"
                 variants={itemVariants}
                 style={{
                   textShadow: '2px 2px 6px rgba(0,0,0,0.7)',
@@ -645,7 +608,7 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
               </motion.p>
 
               <motion.div
-                className="flex flex-col sm:flex-row gap-6 justify-center mobile-hero-actions"
+                className="flex flex-col sm:flex-row gap-4 md:gap-6 justify-center mobile-hero-actions"
                 variants={itemVariants}
               >
                 <motion.div
@@ -654,10 +617,10 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
                 >
                   <Button
                     size="lg"
-                    className="bg-[#1F7A53] hover:bg-[#1F7A53]/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-lg font-semibold py-6 px-8 mobile-hero-button"
+                    className="bg-[#1F7A53] hover:bg-[#1F7A53]/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-base md:text-lg font-semibold py-4 md:py-6 px-6 md:px-8 mobile-hero-button"
                     onClick={() => onPageChange('programs')}
                   >
-                    <BookOpen className="w-6 h-6 mr-2 mobile-hero-button-icon" />
+                    <BookOpen className="w-5 h-5 md:w-6 md:h-6 mr-2 mobile-hero-button-icon" />
                     {t('heroSection.explorePrograms')}
                   </Button>
                 </motion.div>
@@ -668,10 +631,10 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
                   <Button
                     size="lg"
                     variant="outline"
-                    className="bg-[#1F7A53] hover:bg-[#1F7553]/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-lg font-semibold py-6 px-8 mobile-hero-button"
+                    className="bg-[#1F7A53] hover:bg-[#1F7553]/90 text-white shadow-lg hover:shadow-xl transition-all duration-300 text-base md:text-lg font-semibold py-4 md:py-6 px-6 md:px-8 mobile-hero-button"
                     onClick={handleDonateClick}
                   >
-                    <Heart className="w-6 h-6 mr-2 mobile-hero-button-icon" />
+                    <Heart className="w-5 h-5 md:w-6 md:h-6 mr-2 mobile-hero-button-icon" />
                     {t('heroSection.donate')}
                   </Button>
                 </motion.div>
@@ -697,7 +660,8 @@ const HomePage: React.FC<HomePageProps> = ({ onPageChange }) => {
         ref={statsRef}
         className="py-16 bg-white"
         initial="hidden"
-        animate={statsControls}
+        whileInView="visible"
+        viewport={{ once: true }}
         variants={containerVariants}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

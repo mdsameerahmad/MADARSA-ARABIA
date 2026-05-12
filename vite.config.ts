@@ -1,7 +1,7 @@
 
-  import { defineConfig } from 'vite';
   import react from '@vitejs/plugin-react-swc';
-  import path from 'path';
+import path from 'path';
+import { defineConfig } from 'vite';
 
   export default defineConfig({
     plugins: [react()],
@@ -17,7 +17,7 @@
         'next-themes@0.4.6': 'next-themes',
         'lucide-react@0.487.0': 'lucide-react',
         'input-otp@1.4.2': 'input-otp',
-        'figma:asset/92aa51488a0b388614700c11e700fa346505a987.png': path.resolve(__dirname, './src/assets/92aa51488a0b388614700c11e700fa346505a987.png'),
+        'figma:asset/92aa51488a0b388614700c11e700fa346505a987.webp': path.resolve(__dirname, './src/assets/92aa51488a0b388614700c11e700fa346505a987.webp'),
         'embla-carousel-react@8.6.0': 'embla-carousel-react',
         'cmdk@1.1.1': 'cmdk',
         'class-variance-authority@0.7.1': 'class-variance-authority',
@@ -55,7 +55,8 @@
       outDir: 'build',
     },
     server: {
-      port: 3000,
+      host: '0.0.0.0',
+      port: 3954,
       open: true,
     },
   });

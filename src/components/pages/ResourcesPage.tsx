@@ -1,3 +1,6 @@
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { clsx, type ClassValue } from "clsx";
 import { LazyMotion, domAnimation, motion } from 'framer-motion';
 import {
   ArrowRight,
@@ -12,11 +15,8 @@ import {
 } from 'lucide-react';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ImageWithFallback } from '../figma/ImageWithFallback';
-import { Slot } from "@radix-ui/react-slot";
-import { cva, type VariantProps } from "class-variance-authority";
-import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
+import { ImageWithFallback } from '../figma/ImageWithFallback';
 
 function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -289,27 +289,27 @@ const ResourcesPage: React.FC<MissionVisionPageProps> = ({ onPageChange }) => {
   // Data for the ongoing construction section
   const constructionImages = useMemo(() => [
     {
-      src: "/assets/c2.jpg",
+      src: "/assets/phas1.webp",
       subheading: t("resources.construction.phase1.subheading"),
       details: t("resources.construction.phase1.details")
     },
     {
-      src: "/assets/c1.jpg",
+      src: "/assets/c1.webp",
       subheading: t("resources.construction.phase2.subheading"),
       details: t("resources.construction.phase2.details")
     },
     {
-      src: "/assets/c3.jpg",
+      src: "/assets/c3.webp",
       subheading: t("resources.construction.phase3.subheading"),
       details: t("resources.construction.phase3.details")
     },
     {
-      src: "/assets/c5.jpg",
+      src: "/assets/c5.webp",
       subheading: t("resources.construction.phase4.subheading"),
       details: t("resources.construction.phase4.details")
     },
     {
-      src: "/assets/c7.jpg",
+      src: "/assets/c7.webp",
       subheading: t("resources.construction.phase5.subheading"),
       details: t("resources.construction.phase5.details")
     }
@@ -555,7 +555,8 @@ const ResourcesPage: React.FC<MissionVisionPageProps> = ({ onPageChange }) => {
                       <ImageWithFallback
                         src={project.src}
                         alt={project.subheading}
-                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        className={`w-full h-full transition-transform duration-300 group-hover:scale-110 object-cover`}
+                        style={index === 0 ? { transform: 'scale(1.5)' } : {}}
                       />
                     </div>
                     <CardContent className="p-6 flex flex-col items-start">

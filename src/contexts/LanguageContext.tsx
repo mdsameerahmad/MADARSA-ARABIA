@@ -1,5 +1,5 @@
 // src/contexts/LanguageContext.tsx
-import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
+import React, { createContext, ReactNode, useContext, useEffect, useState } from "react";
 import i18n from "../i18n";
 
 interface LanguageContextType {
@@ -16,7 +16,7 @@ interface LanguageProviderProps {
 }
 
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const [language, setLanguageState] = useState<"en" | "hi" | "ur">("en");
+  const [language, setLanguageState] = useState<"en" | "hi" | "ur">("ur");
   const [isI18nReady, setIsI18nReady] = useState(false);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         
         if (typeof window !== "undefined") {
           const savedLang = localStorage.getItem("language") as "en" | "hi" | "ur" | null;
-          const initialLang = savedLang || "hi";
+          const initialLang = savedLang || "ur";
           
           setLanguageState(initialLang);
           await i18n.changeLanguage(initialLang);

@@ -3,15 +3,15 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { clsx, type ClassValue } from "clsx";
 import { motion } from 'framer-motion';
 import {
-  BookOpen,
-  Building,
-  Download,
-  Eye,
-  Heart,
-  Pause,
-  Play,
-  Target,
-  Users
+    BookOpen,
+    Building,
+    Download,
+    Eye,
+    Heart,
+    Pause,
+    Play,
+    Target,
+    Users
 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -296,33 +296,33 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
   ];
 
   const galleryImages = [
-    '/assets/p00.png',
-    '/assets/h1.png',
-    '/assets/h2.png',
-    '/assets/h6.png',
-    '/assets/m1.png',
-    '/assets/m3.png',
-    '/assets/m2.png',
-    '/assets/m1.png',
-    '/assets/h4.png',
-    '/assets/h5.png',
-    '/assets/h1.png',
+    '/assets/p00.webp',
+    '/assets/h1.webp',
+    '/assets/h2.webp',
+    '/assets/h6.webp',
+    '/assets/m1.webp',
+    '/assets/m3.webp',
+    '/assets/m2.webp',
+    '/assets/m1.webp',
+    '/assets/h4.webp',
+    '/assets/h5.webp',
+    '/assets/h1.webp',
   ];
 
   return (
-    <div className="min-h-screen overflow-hidden">
+    <div className="min-h-screen">
       {/* Header Section */}
       <motion.section
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
-        className="bg-gradient-to-br from-[#E8F5EF] via-white to-[#EAF2FB] py-20"
+        className="bg-gradient-to-br from-[#E8F5EF] via-white to-[#EAF2FB] py-16 md:py-20"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
+          <div className="text-center mb-8 md:mb-12">
             <motion.h1
               animate={pulseAnimation}
-              className="text-4xl lg:text-5xl font-bold text-[#0B0D0E] mb-4"
+              className="text-3xl md:text-4xl lg:text-5xl font-bold text-[#0B0D0E] mb-4"
             >
               {t('programsPage.about.pageTitle', 'About Our Institution')}
             </motion.h1>
@@ -330,7 +330,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5, duration: 0.8 }}
-              className="text-xl text-gray-600 max-w-3xl mx-auto"
+              className="text-base md:text-xl text-gray-600 max-w-3xl mx-auto"
             >
               {t('programsPage.about.pageSubtitle', 'Committed to excellence in Islamic education, spiritual development, and community service for over 40 years.')}
             </motion.p>
@@ -356,8 +356,8 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
             </motion.p>
           </div>
 
-          <motion.div variants={fadeIn} className="text-gray-700 text-lg leading-relaxed text-justify space-y-6">
-            <h3 className="text-2xl font-bold text-[#1F7A53] mb-4 text-center">
+          <motion.div variants={fadeIn} className="text-gray-700 text-base md:text-lg leading-relaxed text-justify space-y-6">
+            <h3 className="text-xl md:text-2xl font-bold text-[#1F7A53] mb-4 text-center">
               {t('programsPage.about.madrasaTitle', 'Madrasah Arabia Tajweed-ul-Qur\'an')}
             </h3>
             <p className="text-center">
@@ -390,17 +390,17 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
           {/* New Section for Girls' Madrasa */}
           <motion.div
             variants={fadeIn}
-            className="mt-12 p-8 rounded-2xl bg-gradient-to-br from-[#EAF2FB] to-white shadow-card"
+            className="mt-8 md:mt-12 p-4 md:p-8 rounded-2xl bg-gradient-to-br from-[#EAF2FB] to-white shadow-card"
           >
-            <div className="flex items-center justify-center space-x-4 mb-4">
-              <div className="w-16 h-16 bg-[#1E5FA8] rounded-full flex items-center justify-center flex-shrink-0">
-                <Heart className="w-8 h-8 text-white" />
+            <div className="flex flex-col items-center justify-center space-y-3 mb-4">
+              <div className="w-12 h-12 md:w-16 md:h-16 bg-[#1E5FA8] rounded-full flex items-center justify-center flex-shrink-0">
+                <Heart className="w-6 h-6 md:w-8 md:h-8 text-white" />
               </div>
-              <h3 className="text-2xl font-bold text-[#1E5FA8] text-center">
+              <h3 className="text-xl md:text-2xl font-bold text-[#1E5FA8] text-center">
                 {t('programsPage.about.girlsSectionTitle', 'JAMIA-FATIMA-ZAHRA-LIL BANAAT (Girls\' Section)')}
               </h3>
             </div>
-            <p className="text-gray-700 text-lg leading-relaxed text-justify mb-4">
+            <p className="text-gray-700 text-base md:text-lg leading-relaxed text-justify mb-4">
               {t('programsPage.about.girlsSectionText', 'Madarsa Arabia Tajweedul Quran is also running an Islamic institution for girls, which is currently being managed in a small house,with a total of students girls is 90.Which are from locals area only. the peoples from surrounding areas and different cities want to send their girl child to this Girl\'s institute but due to lack of accommodation and hostel facilities we are unable to meet its expenses and cannot provide them with proper comfort. Although the educational facilities are good,and it is same as good and better which we provide for boys. By the grace of Allah and through your prayers, land for the madrasa has already been arranged. Now, only the construction of the building and other requirements remain, for which we need your wishes and your presence in this project.')}
             </p>
           </motion.div>
@@ -419,14 +419,14 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
           <h2 className="text-3xl lg:text-4xl font-bold text-[#0B0D0E] mb-12 text-center">
             {t('programsPage.about.founderSectionTitle', 'Our Esteemed Founder')}
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-center">
             <motion.div
               variants={fadeIn}
               className="flex justify-center"
             >
-              <div className="w-80 h-80 rounded-full overflow-hidden shadow-xl border-4 border-white">
+              <div className="w-60 h-60 md:w-80 md:h-80 rounded-full overflow-hidden shadow-xl border-4 border-white">
                 <ImageWithFallback
-                  src="/assets/foun.png"
+                  src="/assets/foun.webp"
                   alt="Hazrat Maulana Sayyed Siddique Ahmad Masaunvi (R.A)"
                   className="w-full h-full object-cover"
                 />
@@ -478,15 +478,15 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
           <h2 className="text-3xl lg:text-4xl font-bold text-[#0B0D0E] mb-12 text-center">
             {t('programsPage.about.nazimSectionTitle', 'Nazim\'s Message')}
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 items-center">
             <motion.div variants={fadeIn}>
               <Card className="border-0 shadow-card bg-gradient-to-br from-[#EAF2FB] to-white">
                 <CardHeader>
-                  <CardTitle className="text-2xl text-[#1E5FA8] mb-4">
+                  <CardTitle className="text-xl md:text-2xl text-[#1E5FA8] mb-4">
                     {t('programsPage.about.nazimMessageTitle', 'Message from Maulana Abdul Tawwab Sahab')}
                   </CardTitle>
                 </CardHeader>
-                <CardContent className="text-gray-700 text-lg leading-relaxed space-y-4">
+                <CardContent className="text-gray-700 text-base md:text-lg leading-relaxed space-y-4">
                   <p>{t('programsPage.about.nazimMessageText1', 'It is with deep reverence that we inform all friends and concerned individuals that Hazrat Maulana Sayyed Siddiq Ahmad Masaunvi (R.A), the esteemed founder of Madarsa Arabia Tajveedul Quran Masauni, passed away on June 6th, 2013 (1418 Hijri).')}</p>
                   <p>{t('programsPage.about.nazimMessageText2', 'Despite my reluctance and Maulana\'s reservations, I was entrusted with continuing his legacy. Alhamdulillah, over the past twelve years, with the grace of the founder, guidance of our revered elders, and support of well-wishers, I have carried forward this work, bringing a sense of fulfillment.')}</p>
                   <p>{t('programsPage.about.nazimMessageText3', 'Beyond the Madrasa, we strive to meet the religious and cultural needs of our community consistently.')}</p>
@@ -500,11 +500,11 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
             </motion.div>
             <motion.div
               variants={fadeIn}
-              className="flex justify-center"
+              className="flex justify-center order-first lg:order-last"
             >
-              <div className="w-80 h-80 rounded-full overflow-hidden shadow-xl border-4 border-white">
+              <div className="w-60 h-60 md:w-80 md:h-80 rounded-full overflow-hidden shadow-xl border-4 border-white">
                 <ImageWithFallback
-                  src="/assets/pr.jpg"
+                  src="/assets/pr.webp"
                   alt="Maulana Abdul Tawwab Sahab"
                   className="w-full h-full object-cover"
                 />
@@ -523,20 +523,20 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
         className="py-20 bg-white"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
             <motion.div variants={fadeIn}>
               <motion.div whileHover={scaleOnHover}>
                 <Card className="border-0 shadow-card bg-gradient-to-br from-[#E8F5EF] to-white">
                   <CardHeader className="text-center pb-6">
-                    <motion.div whileHover={rotateOnHover} className="w-16 h-16 bg-[#1F7A53] rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Target className="w-8 h-8 text-white" />
+                    <motion.div whileHover={rotateOnHover} className="w-12 h-12 md:w-16 md:h-16 bg-[#1F7A53] rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Target className="w-6 h-6 md:w-8 md:h-8 text-white" />
                     </motion.div>
-                    <CardTitle className="text-2xl text-[#1F7A53]">
+                    <CardTitle className="text-xl md:text-2xl text-[#1F7A53]">
                       {t('programsPage.about.missionTitle', 'Our Mission')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-700 text-base md:text-lg leading-relaxed">
                       {t('programsPage.about.missionText', 'To provide authentic Islamic education rooted in the Quran and Sunnah, fostering scholarly excellence, spiritual development, and moral character. We aim to prepare knowledgeable and righteous individuals who can serve their communities with wisdom and dedication.')}
                     </p>
                   </CardContent>
@@ -548,15 +548,15 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
               <motion.div whileHover={scaleOnHover}>
                 <Card className="border-0 shadow-card bg-gradient-to-br from-[#EAF2FB] to-white">
                   <CardHeader className="text-center pb-6">
-                    <motion.div whileHover={rotateOnHover} className="w-16 h-16 bg-[#1E5FA8] rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Eye className="w-8 h-8 text-white" />
+                    <motion.div whileHover={rotateOnHover} className="w-12 h-12 md:w-16 md:h-16 bg-[#1E5FA8] rounded-full flex items-center justify-center mx-auto mb-4">
+                      <Eye className="w-6 h-6 md:w-8 md:h-8 text-white" />
                     </motion.div>
-                    <CardTitle className="text-2xl text-[#1E5FA8]">
+                    <CardTitle className="text-xl md:text-2xl text-[#1E5FA8]">
                       {t('programsPage.about.visionTitle', 'Our Vision')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="text-center">
-                    <p className="text-gray-700 leading-relaxed">
+                    <p className="text-gray-700 text-base md:text-lg leading-relaxed">
                       {t('programsPage.about.visionText', 'To be a leading center of Islamic learning that combines traditional scholarship with contemporary understanding, producing graduates who are well-versed in Islamic sciences and capable of addressing modern challenges while preserving authentic Islamic values.')}
                     </p>
                   </CardContent>
@@ -650,7 +650,7 @@ const AboutPage: React.FC<AboutPageProps> = ({ onPageChange }) => {
               className="relative rounded-2xl overflow-hidden"
             >
               <ImageWithFallback
-                src="/assets/h4.png"
+                src="/assets/h4.webp"
                 alt={t('programsPage.about.campusImageAlt', 'Modern Islamic campus')}
                 className="w-full h-[500px] object-cover"
               />

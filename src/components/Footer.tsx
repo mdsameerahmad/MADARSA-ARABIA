@@ -153,7 +153,7 @@ const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
                             >
                                 {/* Updated image size to be larger */}
                                 <ImageWithFallback
-                                    src="/assets/lo.png"
+                                    src="/assets/lo.webp"
                                     alt="Madarsa Arabia Logo"
                                     className="w-16 h-16 object-contain"
                                 />
